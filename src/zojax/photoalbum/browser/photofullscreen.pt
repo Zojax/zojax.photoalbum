@@ -1,0 +1,23 @@
+<div class="photo" tal:condition="context/data/size" i18n:domain="zojax.photoalbum">
+  <h1 class="z-content-title" tal:content="context/title"></h1>
+  <div class="z-content-description"
+       tal:condition="context/description" tal:content="context/description"></div>
+  <br />
+
+  <tal:block define="photos view/photos" content="structure photos/@@fullscreen" />
+
+  <tal:block tal:define="url string:${context/@@absolute_url}/">
+    <div>
+      <a tal:attributes="href url" i18n:translate="">Back</a>&nbsp;&nbsp;&nbsp;
+      <a tal:attributes="href string:${url}/../../" i18n:translate="">Back to album</a>
+    </div>
+    <br />
+    <a tal:attributes="href url; title context/title">
+      <img tal:attributes="src string:$url/show" />
+    </a>
+  </tal:block>
+</div>
+<tal:block condition="not:context/data/size" i18n:domain="zojax">
+  <br />
+  <tal:block i18n:translate="">Photo is not uploaded.</tal:block>
+</tal:block>

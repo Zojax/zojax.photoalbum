@@ -1,0 +1,9 @@
+<h1 class="z-content-title" tal:content="context/title"></h1>
+<div class="z-content-description" tal:content="structure context/description"></div>
+
+<div class="photo" tal:condition="context/data/size" 
+     tal:define="url context/@@absolute_url">
+  <a tal:attributes="href string:$url/index.html">
+    <img tal:attributes="src string:$url/preview/${view/width}x${view/height}/" />
+  </a>
+</div>

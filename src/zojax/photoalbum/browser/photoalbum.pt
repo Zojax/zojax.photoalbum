@@ -1,0 +1,55 @@
+<div tal:define="photos view/listPhotos; url view/url" i18n:domain="zojax.photoalbum">
+  <br />
+  <tal:block tal:content="structure photos/@@pagelet/batch.view" />
+
+  <tal:block tal:repeat="photoId photos">
+    <tal:block tal:define="photo python:view.photoInfo(photoId)">
+      <tal:albums tal:condition="photo/album">
+	<div class="photoAlbumEntry photoAlbumFolder"
+	     tal:define="album photo/album;
+			 photos album/listPhotos;
+			 photos_len album/total">
+	  <dl tal:define="albumUrl string:${album/@@absolute_url}/">
+	    <dt>
+	      <a tal:condition="photos_len" tal:attributes="href albumUrl">
+		<img tal:replace="structure python:view.randomPhoto(album)" />
+	      </a>
+	      <a tal:condition="not:photos_len" class="photoAlbumEmpty"
+		 tal:attributes="href albumUrl">
+		<tal:block i18n:translate="">Empty album</tal:block>
+	      </a>
+	    </dt>
+	    <dd>
+   	      <span tal:content="album/title|album/__name__">Title</span>
+              (<tal:block i18n:translate=""><tal:number i18n:name="num_photos" content="photos_len" /> photos in album</tal:block>)
+	    </dd>
+	  </dl>
+	</div>
+      </tal:albums>
+
+      <div class="photoAlbumEntry" 
+	   tal:condition="python:not photo['album'] and photo['preview'] ">
+	<dl>
+	  <dt>
+	    <a rel="lightbox[photo]"
+	       tal:attributes="title photo/lightbox; href photo/url">
+	      <img tal:replace="structure photo/tag" />
+	    </a>
+	  </dt>
+	  <dd tal:content="photo/title" tal:attributes="title photo/title">
+	    Title
+	  </dd>
+	</dl>
+      </div>
+    </tal:block>
+  </tal:block>
+
+  <div class="visualClear"></div>
+
+  <tal:block tal:condition="python:not (context.total or context.totalAlbums)">
+    <br />
+    <p i18n:translate="">
+      No albums or photos uploaded yet.
+    </p>
+  </tal:block>
+</div>

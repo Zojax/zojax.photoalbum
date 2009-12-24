@@ -1,0 +1,443 @@
+===========
+Photo Album
+===========
+    >>> 
+    >>> from zope import component, interface
+    >>> from zope.testbrowser.testing import Browser
+    >>> from zope.app.component.hooks import setSite
+    >>> from zojax.content.space.content import ContentSpace
+
+    >>> root = getRootFolder()
+    >>> setSite(root)
+    >>> root['space'] = ContentSpace('Spae')
+    >>> _t = root['intids'].register(root['space'])
+
+    >>> actor = Browser()
+    >>> actor.handleErrors = False
+    >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+
+    >>> import os.path
+    >>> filePath1 = os.path.join(os.path.split(__file__)[0], 'image1.jpg')
+    >>> filePath2 = os.path.join(os.path.split(__file__)[0], 'image2.jpg')
+
+
+Install product
+---------------
+
+    >>> actor.open("http://localhost/settings/")
+    >>> actor.getLink('Products management').click()
+    >>> actor.getControl(name='availproducts:list').value = ['photoalbum']
+    >>> actor.getControl(name='install').click()
+    >>> actor.getLink('Photo Album').click()
+    >>> actor.getControl(name='form.widgets.lightbox:list').value = ['false']
+    >>> actor.getControl(name="form.buttons.save").click()
+
+Enable photos workspace
+
+    >>> actor.open("http://localhost/space/context.html/content/")
+    >>> actor.getLink('Workspaces').click()
+    >>> actor.getControl(name="workspaces.widgets.workspaces:list").value = ['photos']
+    >>> actor.getControl(name="content.edit.buttons.save").click()
+
+
+Add photo album
+---------------
+
+    >>> actor.open("http://localhost/space/")
+    >>> actor.getLink('Photos').click()
+    >>> actor.getLink(url="context.html").click()
+    >>> actor.getLink('Photo Album').click()
+
+    >>> actor.getControl('Title').value = u'Photos'
+    >>> actor.getControl('Page count').value = u'4'
+    >>> actor.getControl('Short Name').value = 'album'
+    >>> actor.getControl('Save as Draft').click()
+
+    >>> actor.url
+    'http://localhost/people/manager/content/draft/DraftContent/'
+
+    >>> print actor.contents
+    <html>
+    ...
+    <h1 class="z-draft-heading">
+       <span class="z-draft-heading-info">
+         Draft: Photo Album
+       </span>
+       <span class="z-draft-heading-location">
+         in
+         <a href="http://localhost/space/photos/">Photos</a>
+         <a href="http://localhost/space/">
+            (Spae)</a>
+       </span>
+    </h1>
+    ...
+    <p>
+      No albums or photos uploaded yet.
+    </p>
+    ...
+    </html>
+
+    >>> actor.getControl('Publish').click()
+    >>> print actor.url
+    http://localhost/space/photos/album/
+
+
+Edit
+----
+
+    >>> actor.open("http://localhost/space/photos/album/context.html/content/")
+    >>> actor.getControl('Title').value = u'Photo album'
+    >>> actor.getControl(name='content.edit.buttons.save').click()
+    >>> actor.getLink('View').click()
+
+    >>> print actor.contents
+    <html>
+    ...
+    ...<h1 class="z-content-title">Photo album</h1>...
+    ...
+    <p>
+       No albums or photos uploaded yet.
+    </p>
+    ...
+    </html>
+
+
+Add sub album or photo
+----------------------
+
+    >>> actor.open("http://localhost/space/photos/album/context.html/contents/")
+    >>> print actor.contents
+    <html>
+    ...
+    <a href="http://localhost/space/photos/album/+/content.photo/">Photo</a>
+    ...
+    <a href="http://localhost/space/photos/album/+/content.photoalbum/">Photo Album</a>
+    ...
+    </html>
+
+
+Add photo
+---------
+
+    >>> actor.open('http://localhost/space/photos/album/+/content.photo/')
+    >>> actor.getControl('Title').value = 'Photo1'
+    >>> fileControl = actor.getControl('Photo').mech_control
+    >>> fileControl.add_file(open(filePath1), filename='image1.jpg')
+    >>> actor.getControl('Short Name').value = 'image1'
+    >>> actor.getControl('Publish').click()
+
+
+Edit photo
+----------
+
+    >>> actor.open('http://localhost/space/photos/album/image1/context.html/content/')
+    >>> fileControl = actor.getControl('Photo').mech_control
+    >>> fileControl.add_file(open(filePath2), filename='image2.jpg')
+    >>> actor.getControl(name='content.edit.buttons.save').click()
+    >>> actor.open('http://localhost/space/photos/album/image1/context.html')
+    >>> actor.open('http://localhost/space/photos/album/')
+
+
+Photo preview
+-------------
+we can generate any preview, by default photo view form generates
+preview 480x480
+
+    >>> actor.open('http://localhost/space/photos/album/image1/context.html')
+    >>> actor.getLink('Preview').click()
+    >>> print actor.contents
+    <html>
+    ...
+    <a href="http://localhost/space/photos/album/image1/preview/480x480/">480x480</a>
+    ...
+    </html>
+
+
+Custom preview
+--------------
+
+    >>> actor.getControl('Width').value = '320'
+    >>> actor.getControl('Height').value = '420'
+    >>> actor.getControl(name='preview.buttons.generate').click()
+
+    >>> print actor.contents
+    <html>
+    ...
+    <a href="http://localhost/space/photos/album/image1/preview/320x420/">320x420</a>
+    ...
+    </html>
+
+    >>> actor.getLink('320x420').click()
+    >>> actor.url
+    'http://localhost/space/photos/album/image1/preview/320x420/'
+
+
+Remove preview
+--------------
+
+    >>> actor.open('http://localhost/space/photos/album/image1/context.html/preview/')
+    >>> actor.getControl('Width').value = '520'
+    >>> actor.getControl('Height').value = '620'
+    >>> actor.getControl(name='preview.buttons.generate').click()
+
+    >>> actor.getControl(name='preview:list').value = ['320x420']
+    >>> actor.getControl(name='form.delete').click()
+
+    >>> print actor.contents
+    <html>
+    ...
+    <a href="http://localhost/space/photos/album/image1/preview/520x620/">520x620</a>
+    ...
+    </html>
+
+
+When we update photo, previews removed. But photo view form generates
+default preview
+
+    >>> actor.open('http://localhost/space/photos/album/image1/context.html')
+    >>> fileControl = actor.getControl('Photo').mech_control
+    >>> fileControl.add_file(open(filePath1), filename='image1.jpg')
+    >>> actor.getControl(name='content.edit.buttons.save').click()
+
+    >>> actor.getLink('View').click()
+    >>> print actor.contents
+    <html>
+    ...
+    ...<div class="photo">
+      <a href="http://localhost/space/photos/album/image1/fullscreen.html" title="Photo1">
+        <img src="http://localhost/space/photos/album/image1/preview/480x480/" />
+      </a>
+    </div>...
+    ...
+    </html>
+
+
+We need create more photos
+
+    >>> actor.open('http://localhost/space/photos/album/+/content.photo/')
+    >>> actor.getControl('Title').value = 'Photo2'
+    >>> fileControl = actor.getControl('Photo').mech_control
+    >>> fileControl.add_file(open(filePath1), filename='image1.jpg')
+    >>> actor.getControl('Short Name').value = 'image2'
+    >>> actor.getControl('Publish').click()
+
+    >>> actor.open('http://localhost/space/photos/album/+/content.photo/')
+    >>> actor.getControl('Title').value = 'Photo3'
+    >>> fileControl = actor.getControl('Photo').mech_control
+    >>> fileControl.add_file(open(filePath1), filename='image1.jpg')
+    >>> actor.getControl('Short Name').value = 'image3'
+    >>> actor.getControl('Publish').click()
+
+    >>> actor.open('http://localhost/space/photos/album/+/content.photo/')
+    >>> actor.getControl('Title').value = 'Photo4'
+    >>> fileControl = actor.getControl('Photo').mech_control
+    >>> fileControl.add_file(open(filePath1), filename='image1.jpg')
+    >>> actor.getControl('Short Name').value = 'image4'
+    >>> actor.getControl('Publish').click()
+
+    >>> actor.open('http://localhost/space/photos/album/+/content.photo/')
+    >>> actor.getControl('Title').value = 'Photo5'
+    >>> fileControl = actor.getControl('Photo').mech_control
+    >>> fileControl.add_file(open(filePath1), filename='image1.jpg')
+    >>> actor.getControl('Short Name').value = 'image5'
+    >>> actor.getControl('Publish').click()
+
+    >>> actor.open('http://localhost/space/photos/album/+/content.photo/')
+    >>> fileControl = actor.getControl('Photo').mech_control
+    >>> fileControl.add_file(open(filePath1), filename='image6.jpg')
+    >>> actor.getControl('Title').value = 'image6.jpg'
+    >>> actor.getControl('Short Name').value = 'image6.jpg'
+    >>> actor.getControl('Publish').click()
+
+    
+Photo album batching
+
+    >>> actor.open('http://localhost/space/photos/album/')
+    >>> print actor.contents
+    <html>
+    ...Next...2 &raquo;...
+    ...[<span>1</span>]...
+    ...<span><a href="http://localhost/space/photos/album/@@index.html?bstart=4">2</a></span>...
+    ...
+    ...<img src="http://localhost/space/photos/album/image1/preview/128x128/" title="Photo1" />
+    ...<img src="http://localhost/space/photos/album/image2/preview/128x128/" title="Photo2" />
+    ...<img src="http://localhost/space/photos/album/image3/preview/128x128/" title="Photo3" />
+    ...<img src="http://localhost/space/photos/album/image4/preview/128x128/" title="Photo4" />
+    ...
+    </html>
+
+    >>> actor.getLink('2').click()
+    >>> print actor.contents
+    <html>
+    ...&laquo; Previous...4
+    ...<span><a href="http://localhost/space/photos/album/@@index.html?bstart=0">1</a></span>...
+    ...[<span>2</span>]...
+    ...
+    ...<img src="http://localhost/space/photos/album/image5/preview/128x128/" title="Photo5" />
+    ...<img src="http://localhost/space/photos/album/image6.jpg/preview/128x128/" title="image6.jpg" />
+    ...
+    </html>
+
+
+Space rss feed
+
+    >>> actor.open('http://localhost/space/@@feeds/photos')
+    >>> print actor.contents
+    <?xml version="1.0" encoding="UTF-8"?>
+    <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+      <channel>
+        <title>Photos - Spae</title>
+        <link>http://localhost/space/</link>
+        <description>List of recently changed photos in current space and all sub spaces.</description>
+        <atom:link rel="self" type="application/rss+xml"
+                   href="http://localhost/space/@@feeds/photos"/>
+        <item>
+        ...
+        </item>
+      </channel>
+    </rss>
+
+
+Photos rss feed
+
+    >>> actor.open('http://localhost/space/photos/album/@@feeds/photos')
+    >>> print actor.contents
+    <?xml version="1.0" encoding="UTF-8"?>
+    <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+      <channel>
+        <title>Photos - Photo album</title>
+        <link>http://localhost/space/photos/album/</link>
+        <description>List of recently changed photos.</description>
+        <atom:link rel="self" type="application/rss+xml"
+                   href="http://localhost/space/photos/album/@@feeds/photos"/>
+        <item>
+          <title>image6.jpg</title>
+          <description>&lt;h1 class="z-content-title"&gt;image6.jpg&lt;/h1&gt;&lt;div class="z-content-description"&gt;&lt;/div&gt;&lt;div class="photo"&gt;
+      &lt;a href="http://localhost/space/photos/album/image6.jpg/index.html"&gt;
+        &lt;img src="http://localhost/space/photos/album/image6.jpg/preview/480x480/" /&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;</description>
+          <guid isPermaLink="true">http://localhost/space/photos/album/image6.jpg/</guid>
+          <author> (Manager)</author>
+          <pubDate>...</pubDate>
+        </item>
+        <item>
+          <title>Photo5</title>
+          <description>&lt;h1 class="z-content-title"&gt;Photo5&lt;/h1&gt;&lt;div class="z-content-description"&gt;&lt;/div&gt;&lt;div class="photo"&gt;
+      &lt;a href="http://localhost/space/photos/album/image5/index.html"&gt;
+        &lt;img src="http://localhost/space/photos/album/image5/preview/480x480/" /&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;</description>
+          <guid isPermaLink="true">http://localhost/space/photos/album/image5/</guid>
+          <author> (Manager)</author>
+          <pubDate>...</pubDate>
+        </item>
+    ...
+    </rss>
+
+Photo batching
+
+    >>> actor.open('http://localhost/space/photos/album/image5/')
+    >>> print actor.contents
+    <html>
+    ...&laquo; Previous photo...
+    ...Next photo &raquo;...
+    <span><a href="http://localhost/space/photos/album/image1/">1</a></span>
+    <span><a href="http://localhost/space/photos/album/image2/">2</a></span>
+    <span><a href="http://localhost/space/photos/album/image3/">3</a></span>
+    <span><a href="http://localhost/space/photos/album/image4/">4</a></span>
+    [<span>5</span>]
+    <span><a href="http://localhost/space/photos/album/image6.jpg/">6</a></span>
+    ...
+    </html>
+
+Fullscreen view
+
+    >>> actor.open('http://localhost/space/photos/album/image5/fullscreen.html')
+    >>> print actor.contents
+    <div class="photo">
+    ...&laquo; Previous photo...
+    ...Next photo &raquo;...
+    <span><a href="http://localhost/space/photos/album/image1/fullscreen.html">1</a></span>
+    <span><a href="http://localhost/space/photos/album/image2/fullscreen.html">2</a></span>
+    <span><a href="http://localhost/space/photos/album/image3/fullscreen.html">3</a></span>
+    <span><a href="http://localhost/space/photos/album/image4/fullscreen.html">4</a></span>
+    [<span>5</span>]
+    <span><a href="http://localhost/space/photos/album/image6.jpg/fullscreen.html">6</a></span>
+    ...
+    </div>
+
+Back to photo view
+
+    >>> actor.getLink('Back').url
+    'http://localhost/space/photos/album/image5/'
+
+Back to album view
+
+    >>> actor.getLink('Back to album').url
+    'http://localhost/space/photos/album/'
+
+
+Add sub folder
+
+    >>> actor.open('http://localhost/space/photos/')
+    >>> print actor.contents
+    <html>
+    ...
+    <div class="photoAlbumEntry photoAlbumFolder">
+      <dl>
+    	<dt>
+    	  <a href="http://localhost/space/photos/album/">
+            <img src="http://localhost/space/photos/album/image1/preview/128x128/" title=""/>
+     	  </a>
+    	</dt>
+    	<dd>
+       	   <span>Photo album</span>
+              (6 photos in album)
+    	</dd>
+      </dl>
+    </div>
+    ...
+    </html>
+
+
+Remove photo
+
+    >>> actor.open('http://localhost/space/photos/album/context.html')
+    >>> actor.getControl(name='ids:list').value = ['image2']
+    >>> actor.getControl(name='form.buttons.delete').click()
+
+
+Batch upload
+
+    >>> actor.open('http://localhost/space/photos/+/')
+
+    >>> actor.getLink('Photo Album').click()
+    >>> actor.getControl('Title').value = u'Sub photos'
+    >>> actor.getControl('Short Name').value = 'subphotos'
+    >>> actor.getControl('Publish').click()
+
+    >>> actor.open('http://localhost/space/photos/subphotos/context.html/upload/')
+
+    >>> filePath = os.path.join(os.path.split(__file__)[0], 'images.zip')
+    >>> fileControl = actor.getControl(name="uploadFile").mech_control
+    >>> fileControl.add_file(open(filePath), filename='images.zip')
+    >>> actor.getControl(name="form.upload").click()
+
+    >>> actor.open('http://localhost/space/photos/subphotos/')
+    >>> print actor.contents
+    <html>
+    ...
+    <img src="http://localhost/space/photos/subphotos/image1.jpg/preview/128x128/" title="image1.jpg" />
+    ...
+    </html>
+
+    >>> actor.open('http://localhost/space/photos/')
+
+Unistall product
+
+    >>> actor.open("http://localhost/settings/")
+    >>> actor.getLink('Products management').click()
+    >>> actor.getControl(name='products:list').value = ['photoalbum']
+    >>> actor.getControl(name='uninstall').click()
+    >>> setSite(None)

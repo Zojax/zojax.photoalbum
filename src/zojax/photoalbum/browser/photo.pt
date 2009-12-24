@@ -1,0 +1,14 @@
+<tal:block define="photos view/photos" condition="photos"
+	   content="structure photos/@@pagelet" />
+
+<div class="photo" tal:condition="context/data/size">
+  <a tal:define="url string:${context/@@absolute_url}"
+     tal:attributes="href string:$url/fullscreen.html; title context/title">
+    <img tal:attributes="src string:$url/preview/${view/width}x${view/height}/" />
+  </a>
+</div>
+
+<tal:block condition="not:context/data/size" i18n:domain="zojax.photoalbum">
+  <br />
+  <tal:block i18n:translate="">Photo is not uploaded.</tal:block>
+</tal:block>
