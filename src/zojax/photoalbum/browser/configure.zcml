@@ -1,0 +1,159 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.photoalbum">
+
+  <include file="actions.zcml" />
+
+  <!-- photo -->
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IPhoto"
+     file="icons/photo_icon.png" />
+
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IPhotoType"
+     file="icons/photo_icon.png" />
+
+  <zojax:pagelet
+     name="index.html"
+     for="..interfaces.IPhoto"
+     template="photo.pt"
+     class=".photo.PhotoView"
+     provides="zojax.content.type.interfaces.IContentView"
+     permission="zope.View" />
+
+  <browser:page
+     name="show"
+     for="..interfaces.IPhoto"
+     attribute="show"
+     class=".photo.PhotoView"
+     permission="zope.Public" />
+
+  <zojax:pagelet
+     name="fullscreen.html"
+     layout="page"
+     for="..interfaces.IPhoto"
+     template="photofullscreen.pt"
+     class=".photo.PhotoView"
+     permission="zope.View" />
+
+  <zojax:pagelet
+     type="content.type.preview"
+     for="..interfaces.IPhoto"
+     class=".photo.PhotoView"
+     template="photopreview.pt" />
+
+  <!-- Photo publisher -->
+  <adapter
+     for="..interfaces.IPhoto *"
+     factory="z3c.traverser.traverser.PluggableTraverser"
+     provides="zope.publisher.interfaces.IPublishTraverse" />
+
+  <subscriber
+     for="..interfaces.IPhoto *"
+     provides="z3c.traverser.interfaces.ITraverserPlugin"
+     factory=".publisher.PhotoPublisherPlugin" />
+
+  <!-- Previews -->
+  <zojax:pagelet
+     name="preview"
+     title="Previews"
+     type="wizard.step"
+     for="..interfaces.IPhoto
+	  zojax.content.forms.interfaces.IEditContentWizard"
+     template="preview.pt"
+     class=".preview.Previews"
+     permission="zojax.ModifyContent"
+     provides="zojax.layoutform.interfaces.IPageletFormView"
+     weight="170" />
+
+  <adapter
+     for="..interfaces.IPreviewFolder *"
+     factory="z3c.traverser.traverser.PluggableTraverser"
+     provides="zope.publisher.interfaces.IPublishTraverse" />
+
+  <subscriber
+     for="..interfaces.IPreviewFolder *"
+     provides="z3c.traverser.interfaces.ITraverserPlugin"
+     factory=".publisher.PreviewPublisherPlugin" />
+
+  <!-- Photo Album -->
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IPhotoAlbum"
+     file="icons/photos.png" />
+
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IPhotoAlbumType"
+     file="icons/photos.png" />
+
+  <browser:defaultView
+     name="index.html"
+     for="..interfaces.IPhotoAlbum" />
+
+  <zojax:pagelet
+     name="index.html"
+     for="..interfaces.IPhotoAlbum"
+     template="photoalbum.pt"
+     class=".photoalbum.PhotoAlbumView"
+     provides="zojax.content.type.interfaces.IContentView"
+     permission="zope.View" />
+
+  <zojax:pagelet
+     name="upload"
+     type="wizard.step"
+     for="..interfaces.IPhotoAlbum
+	  zojax.content.forms.interfaces.IEditContentWizard"
+     template="upload.pt"
+     class=".upload.UploadForm"
+     permission="zojax.ModifyContent"
+     provides="zojax.layoutform.interfaces.IPageletFormView"
+     weight="170" />
+
+  <!-- workspace -->
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IPhotosWorkspace"
+     file="./icons/photos.png" />
+
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IPhotosWorkspaceFactory"
+     file="./icons/photos.png" />
+
+  <browser:icon
+     name="zmi_icon"
+     for="..interfaces.IPhotosRSSFeed"
+     file="./icons/photos.png" />
+
+  <!-- photo batch -->
+  <class class=".batch.PhotoBatch">
+    <require
+       permission="zope.Public"
+       interface="z3c.batching.interfaces.IBatch" />
+  </class>
+
+  <zojax:pagelet
+     type="pagelet"
+     for=".interfaces.IPhotoBatch"
+     class=".batch.PhotoBatchView"
+     permission="zope.Public" />
+
+  <zojax:pagelet
+     name="fullscreen"
+     for=".interfaces.IPhotoBatch"
+     class=".batch.PhotoBatchFullView"
+     permission="zope.Public" />
+
+  <!-- resources -->
+  <zojax:resourceinclude
+     type="stylesheet"
+     name="zojax-photoalbum.css"
+     library="zojax.photoalbum"
+     file="photo.css" filetype="zrt" />
+
+</configure>

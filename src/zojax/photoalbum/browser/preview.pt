@@ -1,0 +1,25 @@
+<tal:block i18n:domain="zojax.photoalbum"
+	   define="preview python:context.preview">
+  <h1 i18n:translate="">Previews</h1>
+  <tal:block condition="not:preview">
+    <br />
+    <div i18n:translate="">There are no previews.</div>
+  </tal:block>
+  <tal:block condition="preview">
+    <tal:block define="url context/@@absolute_url"
+	       repeat="name preview/keys">
+      <input type="checkbox" name="preview:list"
+	     tal:attributes="value name" />
+      <a tal:content="name" 
+	 tal:attributes="href string:$url/preview/$name/"></a>
+    </tal:block>
+    <div class="z-form-controls">
+      <hr />
+      <input type="submit" class="z-form-removebutton"
+	     i18n:attributes="value" name="form.delete" value="Delete" />
+    </div>
+  </tal:block>
+  
+  <br />
+  <tal:block content="structure view/@@pagelet/form.view" />
+</tal:block>

@@ -1,0 +1,45 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <!-- activity -->
+  <class class=".album.PhotoAlbum"
+	 zcml:condition="installed zojax.activity">
+    <implements interface="zojax.activity.interfaces.IActivityAware" />
+  </class>
+
+  <!-- support extensions -->
+  <class class=".album.PhotoAlbum" zcml:condition="installed zojax.extensions">
+    <implements interface="zojax.extensions.interfaces.IExtensible" />
+  </class>
+
+  <!-- support sorting -->
+  <class class=".album.PhotoAlbum" zcml:condition="installed zojax.content.sorting">
+    <implements interface="zojax.content.sorting.interfaces.ISortable" />
+  </class>
+
+  <!-- tagging -->
+  <class class=".album.PhotoAlbum"
+	 zcml:condition="installed zojax.content.tagging">
+    <implements interface="zojax.content.tagging.interfaces.IContentTaggable" />
+  </class>
+
+  <!-- tags -->
+  <class class=".photo.Photo"
+	 zcml:condition="installed zojax.content.tagging">
+    <implements interface="zojax.content.tagging.interfaces.IContentTaggable" />
+  </class>
+
+  <!-- discussion -->
+  <class class=".photo.Photo"
+	 zcml:condition="installed zojax.content.discussion">
+    <implements interface="zojax.content.discussion.interfaces.IOpenDiscussible" />
+  </class>
+
+  <!-- activity -->
+  <class class=".photo.Photo"
+	 zcml:condition="installed zojax.activity">
+    <implements interface="zojax.activity.interfaces.IActivityAware" />
+  </class>
+
+</configure>

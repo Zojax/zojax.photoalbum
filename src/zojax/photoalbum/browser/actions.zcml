@@ -1,0 +1,44 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.photoalbum">
+
+  <!-- add photo action -->
+  <adapter
+     name="photos.rss"
+     factory=".actions.PhotoAlbumRSSFeedAction" />
+
+  <browser:icon
+     name="zmi_icon"
+     file="icons/rss.png"
+     for=".interfaces.IPhotoAlbumRSSFeedAction" />
+
+  <!-- add photo action -->
+  <adapter
+     name="photo.create"
+     factory=".actions.AddPhotoAction"
+     provides=".interfaces.IAddPhotoAction" />
+
+  <browser:icon
+     name="zmi_icon"
+     file="icons/photo_add.png"
+     for=".interfaces.IAddPhotoAction" />
+
+  <!-- back to album action -->
+  <adapter
+     name="photo.back"
+     provides="zojax.content.actions.interfaces.IContentAction"
+     factory=".actions.ViewPhotoAlbumAction" />
+
+  <adapter
+     name="photo.back"
+     provides="zojax.content.actions.interfaces.IContextAction"
+     factory=".actions.ContextViewPhotoAlbumAction" />
+
+  <browser:icon
+     name="zmi_icon"
+     file="icons/photos.png"
+     for=".interfaces.IViewPhotoAlbumAction" />
+
+</configure>

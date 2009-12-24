@@ -1,0 +1,199 @@
+# #############################################################################
+#
+# Copyright (c) 2009 Zope Foundation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+# #############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Fri Oct 17 18:36:11 2008\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/photoalbum/browser/action.py:32
+#: src/zojax/photoalbum/browser/photofullscreen.pt:13
+msgid "Back to album"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/batch.pt:13
+#: src/zojax/photoalbum/browser/batchfull.pt:13
+msgid "Next photo"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/batch.pt:7
+#: src/zojax/photoalbum/browser/batchfull.pt:7
+msgid "Previous photo"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/configure.zcml:55
+#: src/zojax/photoalbum/browser/preview.pt:2
+msgid "Previews"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photo.pt:12
+msgid "Photo is not uploaded."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photo.py:33
+#: src/zojax/photoalbum/interfaces.py:47 src/zojax/photoalbum/photo.zcml:7
+msgid "Photo"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photo.zcml:15
+#: src/zojax/photoalbum/browser/upload.pt:24
+msgid "Upload"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.pt:18
+msgid "Empty album"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.pt:23
+msgid "${num_photos} photos in album"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.pt:50
+msgid "No albums or photos uploaded yet."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.py:71
+msgid "Fullscreen"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.py:71
+msgid "Fullscreen view"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.py:72
+msgid "View"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.py:72
+msgid "Standard view"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photofullscreen.pt:12
+msgid "Back"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.pt:19
+msgid "Delete"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.pt:6
+msgid "There are no previews."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:29
+msgid "Width"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:34
+msgid "Height"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:43
+msgid "Generate preview"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:47
+msgid "Generate"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:56
+msgid "Preview has been generated."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:71
+msgid "Previews have been removed."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/upload.pt:3
+msgid "Batch uploads"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/upload.pt:7
+msgid "Select file"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/upload.pt:8
+msgid ""
+"Upload ZIP/TAR file with images to be uploaded to the Photo Album. <br /> "
+"Make sure you have only folders and images in the ZIP/TAR file. <br /> NOTE: "
+"You need to fill the Metadata (such as title and description) for all the "
+"images uploaded."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/upload.py:70
+msgid "Files have been uploaded."
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:14
+msgid "Simple photo album for zojax."
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:14
+#: src/zojax/photoalbum/configure.zcml:24
+msgid "Photo Album"
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:24
+msgid "Simple photo album."
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:100
+msgid "Lightbox"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:101
+msgid "Use Lightbox javascript for quick photo album browsing."
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:25
+msgid "Thumbnail"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:26
+msgid "Small"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:27
+msgid "Medium"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:28
+msgid "Large"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:35
+msgid "Title"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:41
+msgid "Description"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:66
+msgid "Page count"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:67
+msgid "Number of photos on page."
+msgstr ""
+
+#: src/zojax/photoalbum/photo.zcml:7
+msgid "Photo with previews."
+msgstr ""

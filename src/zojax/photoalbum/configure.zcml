@@ -1,0 +1,139 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zcml="http://namespaces.zope.org/zcml"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.photoalbum">
+
+  <permission
+     id="zojax.AddPhoto"
+     title="Add photo"
+     description="Allow add new photo to portal." />
+
+  <permission
+     id="zojax.AddPhotoAlbum"
+     title="Add photo album"
+     description="Allow add new photo album to portal." />
+
+  <permission
+     id="zojax.SubmitPhoto"
+     title="Submit photo"
+     description="Allow submit photo to portal photo album." />
+
+  <permission
+     id="zojax.SubmitPhotoAlbum"
+     title="Submit photo album"
+     description="Allow submit photo album to portal." />
+
+  <interface
+     name="Photos"
+     interface=".interfaces.IPhotoType"
+     type="zojax.content.type.interfaces.IContentTypeType" />
+
+  <zojax:product
+     name="photoalbum"
+     title="Photo Album"
+     description="Simple photo album for zojax."
+     schema=".interfaces.IPhotoAlbumProduct"
+     configurable="True" />
+
+  <registerIn registry="zojax.product.photoalbum">
+
+    <!-- Photo Album -->
+    <zojax:content
+       title="Photo Album"
+       name="content.photoalbum"
+       description="Simple photo album."
+       class=".album.PhotoAlbum"
+       schema=".interfaces.IPhotoAlbum"
+       contenttype=".interfaces.IPhotoAlbumType"
+       contains=".interfaces.IPhotoType
+		 .interfaces.IPhotoAlbumType"
+       containers=".interfaces.IPhotoAlbumType"
+       type="zojax.content.type.interfaces.IActivePortalType"
+       permission="zojax.AddPhotoAlbum" />
+
+    <class class=".album.PhotoAlbum">
+      <implements interface="zojax.ownership.interfaces.IOwnerAware" />
+      <implements interface="zojax.content.type.interfaces.IShareableContent" />
+      <implements interface="zojax.content.type.interfaces.ISearchableContent" />
+      <implements interface="zojax.content.type.interfaces.IContainerContentsAware" />
+      <implements interface="zojax.content.type.interfaces.ITitleBasedName" />
+
+      <require
+	 permission="zope.View"
+	 interface=".interfaces.IPhotoAlbum
+                    zope.app.container.interfaces.IReadContainer" />
+      <require
+	 permission="zojax.ModifyContent"
+	 set_schema=".interfaces.IPhotoAlbum"
+	 interface="zope.app.container.interfaces.IWriteContainer" />
+    </class>
+    
+    <subscriber handler=".album.photoAdded" />
+    <subscriber handler=".album.photoRemoved" />
+
+    <zojax:draft
+       content="content.photoalbum"
+       publish="zojax.AddPhotoAlbum"
+       submit="zojax.SubmitPhotoAlbum" />
+    
+    <!-- preview folder -->
+    <class class=".preview.PreviewFolder">
+      <require
+	 permission="zope.View"
+	 interface=".interfaces.IPreviewFolder
+		    zope.app.container.interfaces.IReadContainer" />
+      <require
+	 permission="zojax.ModifyContent"
+	 interface="zope.app.container.interfaces.IWriteContainer" />
+    </class>
+
+    <!-- photo -->
+    <include file="photo.zcml" />
+
+    <!-- photos worksapce -->
+    <include file="workspace.zcml" />
+
+    <!-- rss feeds -->
+    <include file="feeds.zcml" />
+
+    <!-- browser views -->
+    <include package=".browser" />
+
+    <!-- permissions -->
+    <zojax:permission
+       permission="zojax.AddPhotoAlbum"
+       category="zojax.content.permissions.interfaces.IAddPermission" />
+
+    <zojax:permission
+       permission="zojax.SubmitPhotoAlbum"
+       category="zojax.content.permissions.interfaces.ISubmitPermission" />
+
+    <zojax:contentpermission
+       permission="zojax.AddPhotoAlbum"
+       for="zojax.content.space.interfaces.ISpace"
+       workspace="photos"
+       managepermission="zojax.ManageContentPermission"
+       class="zojax.content.space.permission.SpacePermission"
+       category="zojax.content.permissions.interfaces.IAddPermission"
+       provides="zojax.content.space.interfaces.ISpacePermission" />
+
+    <zojax:contentpermission
+       permission="zojax.SubmitPhotoAlbum"
+       for="zojax.content.space.interfaces.IContentSpace"
+       workspace="photos"
+       managepermission="zojax.ManageContentPermission"
+       class="zojax.content.space.permission.SpacePermission"
+       category="zojax.content.permissions.interfaces.ISubmitPermission"
+       provides="zojax.content.space.interfaces.ISpacePermission" />
+
+  </registerIn>
+
+  <!-- capabilities -->
+  <include file="capability.zcml" />
+
+  <!-- translations -->
+  <i18n:registerTranslations directory="locales"/>
+
+</configure>

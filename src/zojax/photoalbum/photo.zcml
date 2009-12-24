@@ -1,0 +1,67 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.photoalbum">
+
+  <!-- Photo -->
+  <zojax:content
+     title="Photo"
+     schema=".interfaces.IPhoto"
+     name="content.photo"
+     class=".photo.Photo"
+     description="Photo with previews."
+     contenttype=".interfaces.ISimplePhotoType"
+     type=".interfaces.IPhotoType
+	   zojax.content.type.interfaces.IActivePortalType"
+     containers=".interfaces.IPhotoAlbumType"
+     permission="zojax.AddPhoto" />
+    
+  <class class=".photo.Photo">
+    <implements interface="zojax.ownership.interfaces.IOwnerAware" />
+    <implements interface="zojax.content.type.interfaces.ISearchableContent" />
+    <implements interface="zojax.content.type.interfaces.ITitleBasedName" />
+
+    <require
+       permission="zope.View"
+       interface=".interfaces.IPhoto" />
+    <require
+       permission="zojax.ModifyContent"
+       set_schema=".interfaces.IPhoto" />
+  </class>
+
+  <zojax:draft
+     content="content.photo"
+     publish="zojax.AddPhoto"
+     submit="zojax.SubmitPhoto" />
+
+  <adapter factory=".photo.Sized" />
+  <subscriber handler=".photo.photoModifiedHandler" />
+
+  <!-- permissions -->
+  <zojax:permission
+     permission="zojax.AddPhoto"
+     category="zojax.content.permissions.interfaces.IAddPermission" />
+
+  <zojax:permission
+     permission="zojax.SubmitPhoto"
+     category="zojax.content.permissions.interfaces.ISubmitPermission" />
+
+  <zojax:contentpermission
+     permission="zojax.AddPhoto"
+     for="zojax.content.space.interfaces.ISpace"
+     workspace="photos"
+     managepermission="zojax.ManageContentPermission"
+     class="zojax.content.space.permission.SpacePermission"
+     category="zojax.content.permissions.interfaces.IAddPermission"
+     provides="zojax.content.space.interfaces.ISpacePermission" />
+
+  <zojax:contentpermission
+     permission="zojax.SubmitPhoto"
+     for="zojax.content.space.interfaces.ISpace"
+     workspace="photos"
+     managepermission="zojax.ManageContentPermission"
+     class="zojax.content.space.permission.SpacePermission"
+     category="zojax.content.permissions.interfaces.ISubmitPermission"
+     provides="zojax.content.space.interfaces.ISpacePermission" />
+
+</configure>

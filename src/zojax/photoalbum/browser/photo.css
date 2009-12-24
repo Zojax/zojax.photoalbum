@@ -1,0 +1,70 @@
+/* zrt-cssregistry: */
+
+@media all {
+  .photo {
+    padding: 2em;
+    text-align: center;
+  }
+  
+  .photoAlbumEntry {
+    float: left;
+    height: 150px;
+    padding: 0.5em;
+    margin: 0.5em 1em 0.5em 0;
+    text-align: center;
+    border: borderWidth borderStyleAnnotations globalBorderColor;
+  }
+  
+  .photoAlbumFolder {
+    border: borderWidth borderStyle globalBorderColor;
+    background: globalBackgroundColor;
+  }
+  
+  .photoAlbumEntry dl,
+  .photoAlbumEntry dt,
+  .photoAlbumEntry dd {
+    padding: 0;
+    margin: 0;
+  }
+
+  .photoAlbumEntry dd {
+    width: 128px;
+    height: 55px;
+    overflow: hidden;
+  }
+  
+  .photoAlbumFolder dd span {
+    display: block;
+    white-space: normal;
+  }
+  
+  .photoAlbumEntry dd {
+    font-size: fontSmallSize;
+    font-weight: bold;
+  }
+  
+  .photoAlbumEmpty {
+    display: block;
+    margin: 4em 0 4em 0;
+  }
+
+  #tipDiv {
+    position: absolute;
+    visibility: hidden; 
+    z-index: 100;
+    width: 160px;
+  }
+  
+  .photoTooltip {
+    float: left;
+    background-color: evenRowBackgroundColor;
+    border: borderWidth borderStyle globalBorderColor;
+    padding: 1em;
+    text-align: center;
+    font-size: fontSmallSize;
+  }
+  
+  .photoTooltip .title { 
+    font-weight: bold;
+  }
+}

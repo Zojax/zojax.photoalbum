@@ -1,0 +1,24 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope">
+
+  <adapter 
+     name="photos"
+     factory=".feeds.PhotosRSSFeed" />
+
+  <class class=".feeds.PhotosRSSFeed">
+    <require
+       permission="zope.View"
+       interface="zojax.content.feeds.interfaces.IFeed" />
+  </class>
+
+  <adapter 
+     name="photos"
+     factory=".feeds.PhotoAlbumRSSFeed" />
+
+  <class class=".feeds.PhotoAlbumRSSFeed">
+    <require
+       permission="zope.View"
+       interface="zojax.content.feeds.interfaces.IFeed" />
+  </class>
+
+</configure>
