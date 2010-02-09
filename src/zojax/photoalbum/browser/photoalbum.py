@@ -40,7 +40,7 @@ class PhotoAlbumView(object):
         if self.lightbox:
             try:
                 self.context.listPhotos().next()
-                includeInplaceSource(lightboxinit, required=('jquery-plugins',))
+                includeInplaceSource(lightboxinit, required=('jquery-lightbox',))
             except:
                 pass
 
@@ -100,13 +100,5 @@ class PhotoAlbumView(object):
 
 lightboxinit = """
 <script type="text/javascript">
-$(document).ready(
-function(){$.Lightbox.construct({
-"ie6_upgrade": false,"show_linkback": false,"download_link": false,
-"files": {js: {}, css: {}, images: {
-prev:'++resource++jqueryLightbox/prev.gif',
-next:'++resource++jqueryLightbox/next.gif',
-blank:'++resource++jqueryLightbox/blank.gif',
-loading:'++resource++jqueryLightbox/loading.gif'}}});
-});</script>
+</script>
 """
