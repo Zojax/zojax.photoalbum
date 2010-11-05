@@ -62,6 +62,30 @@ class AddPhotoAction(AddContent):
             return True
 
         return False
+    
+    
+class UploadPhotosAction(AddContent):
+    interface.implements(interfaces.IUploadPhotosAction, IAddContentCategory)
+    component.adapts(IPhotoAlbum, interface.Interface)
+
+    weight = 101
+    title = _(u'Batch upload of photos')
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    @property
+    def url(self):
+        return '%s/context.html/upload'%(absoluteURL(self.context, self.request))
+
+    def isAvailable(self):
+        context = self.context
+        if checkPermission('zojax.AddPhoto', context) or \
+                checkPermission('zojax.SubmitPhoto', context):
+            return True
+
+        return False
 
 
 class BaseViewPhotoAlbumAction(object):

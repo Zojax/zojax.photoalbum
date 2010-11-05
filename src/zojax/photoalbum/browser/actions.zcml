@@ -19,11 +19,23 @@
      name="photo.create"
      factory=".actions.AddPhotoAction"
      provides=".interfaces.IAddPhotoAction" />
+     
+  <!-- upload photos action -->
+  <adapter
+     name="photos.upload"
+     factory=".actions.UploadPhotosAction"
+     provides=".interfaces.IUploadPhotosAction" />
 
   <browser:icon
      name="zmi_icon"
      file="icons/photo_add.png"
      for=".interfaces.IAddPhotoAction" />
+     
+  <browser:icon
+     name="zmi_icon"
+     file="icons/photos_add.png"
+     for=".interfaces.IUploadPhotosAction" />
+  
 
   <!-- back to album action -->
   <adapter

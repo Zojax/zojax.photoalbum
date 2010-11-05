@@ -30,6 +30,10 @@ class IPhotoBatch(interface.Interface):
 
 class IAddPhotoAction(IAddContentAction):
     """ add photo action """
+    
+    
+class IUploadPhotosAction(IAddContentAction):
+    """ upload photos action """
 
 
 class IViewPhotoAlbumAction(interface.Interface):
