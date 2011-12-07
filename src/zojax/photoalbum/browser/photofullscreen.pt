@@ -17,7 +17,7 @@
     </a>
   </tal:block>
 </div>
-<tal:block condition="not:context/data/size" i18n:domain="zojax">
+<tal:block condition="not:context/data/size" i18n:domain="zojax.photoalbum">
   <br />
   <tal:block i18n:translate="">Photo is not uploaded.</tal:block>
 </tal:block>
