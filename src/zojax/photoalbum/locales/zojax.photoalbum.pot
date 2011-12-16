@@ -1,0 +1,257 @@
+##############################################################################
+#
+# Copyright (c) 2003-2004 Zope Corporation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Thu Dec  8 23:13:01 2011\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/photoalbum/browser/actions.py:125
+msgid "RSS Feed"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/actions.py:40
+msgid "Upload a photo"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/actions.py:72
+msgid "Batch upload of photos"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/actions.py:96
+#: src/zojax/photoalbum/browser/photofullscreen.pt:12
+msgid "Back to album"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/batch.pt:13
+#: src/zojax/photoalbum/browser/batchfull.pt:13
+msgid "Next photo"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/batch.pt:7
+#: src/zojax/photoalbum/browser/batchfull.pt:7
+msgid "Previous photo"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photo.py:34
+#: src/zojax/photoalbum/interfaces.py:50
+#: src/zojax/photoalbum/photo.zcml:7
+msgid "Photo"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.pt:19
+msgid "Empty album"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.pt:24
+msgid "${num_photos} photos in album"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.pt:51
+msgid "No albums or photos uploaded yet."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.py:76
+msgid "Fullscreen"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.py:76
+msgid "Fullscreen view"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.py:77
+msgid "View"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photoalbum.py:77
+msgid "Standard view"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photofullscreen.pt:11
+msgid "Back"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/photofullscreen.pt:22
+#: src/zojax/photoalbum/browser/photo.pt:13
+msgid "Photo is not uploaded."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.pt:18
+msgid "Delete"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.pt:3
+msgid "Previews"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.pt:6
+msgid "There are no previews."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:30
+msgid "Width"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:35
+msgid "Height"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:46
+msgid "Generate preview"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:52
+msgid "Generate"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:69
+msgid "Previews have been removed."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/preview.py:79
+msgid "Preview has been generated."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/upload.pt:2
+msgid "Batch uploads"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/upload.pt:6
+msgid "Select file"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/upload.pt:7
+msgid "Upload ZIP/TAR file with images to be uploaded to the Photo Album. <br /> Make sure you have only folders and images in the ZIP/TAR file. <br /> NOTE: You need to fill the Metadata (such as title and description) for all the images uploaded."
+msgstr ""
+
+#: src/zojax/photoalbum/browser/upload.py:35
+#: src/zojax/photoalbum/browser/upload.pt:24
+msgid "Upload"
+msgstr ""
+
+#: src/zojax/photoalbum/browser/upload.py:82
+msgid "Files have been uploaded."
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:13
+msgid "Allow add new photo album to portal."
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:13
+msgid "Add photo album"
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:18
+msgid "Submit photo"
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:18
+msgid "Allow submit photo to portal photo album."
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:23
+msgid "Submit photo album"
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:23
+msgid "Allow submit photo album to portal."
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:33
+msgid "Simple photo album for zojax."
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:33
+#: src/zojax/photoalbum/configure.zcml:43
+msgid "Photo Album"
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:43
+msgid "Simple photo album."
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:8
+msgid "Add photo"
+msgstr ""
+
+#: src/zojax/photoalbum/configure.zcml:8
+msgid "Allow add new photo to portal."
+msgstr ""
+
+#: src/zojax/photoalbum/feeds.py:39
+msgid "Photos"
+msgstr ""
+
+#: src/zojax/photoalbum/feeds.py:40
+msgid "List of recently changed photos in current space and all sub spaces."
+msgstr ""
+
+#: src/zojax/photoalbum/feeds.py:78
+msgid "List of recently changed photos."
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:103
+msgid "Lightbox"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:104
+msgid "Use Lightbox javascript for quick photo album browsing."
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:28
+msgid "Thumbnail"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:29
+msgid "Small"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:30
+msgid "Medium"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:31
+msgid "Large"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:38
+msgid "Title"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:44
+msgid "Description"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:69
+msgid "Page count"
+msgstr ""
+
+#: src/zojax/photoalbum/interfaces.py:70
+msgid "Number of photos on page."
+msgstr ""
+
+#: src/zojax/photoalbum/photo.zcml:7
+msgid "Photo with previews."
+msgstr ""
+
+#: src/zojax/photoalbum/workspace.zcml:11
+msgid "Photos Workspace"
+msgstr ""
+
