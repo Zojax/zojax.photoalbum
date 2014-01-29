@@ -284,19 +284,17 @@ Space rss feed
     >>> actor.open('http://localhost/space/@@feeds/photos')
     >>> print actor.contents
     <?xml version="1.0" encoding="UTF-8"?>
-    <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-      <channel>
-        <title>Photos - Spae</title>
+    ...
+        <title>Photos - Spae
+    </title>
         <link>http://localhost/space/</link>
         <description>List of recently changed photos in current space and all sub spaces.</description>
         <atom:link rel="self" type="application/rss+xml"
                    href="http://localhost/space/@@feeds/photos"/>
         <item>
-        ...
-        </item>
+    ...
       </channel>
     </rss>
-
 
 Photos rss feed
 
@@ -305,34 +303,36 @@ Photos rss feed
     <?xml version="1.0" encoding="UTF-8"?>
     <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
       <channel>
-        <title>Photos - Photo album</title>
+        <title>Photos - Photo album
+    </title>
         <link>http://localhost/space/photos/album/</link>
         <description>List of recently changed photos.</description>
         <atom:link rel="self" type="application/rss+xml"
                    href="http://localhost/space/photos/album/@@feeds/photos"/>
         <item>
           <title>image6.jpg</title>
-          <description>&lt;h1 class="z-content-title"&gt;image6.jpg&lt;/h1&gt;&lt;div class="z-content-description"&gt;&lt;/div&gt;&lt;div class="photo"&gt;
-      &lt;a href="http://localhost/space/photos/album/image6.jpg/index.html"&gt;
-        &lt;img src="http://localhost/space/photos/album/image6.jpg/preview/480x480/" /&gt;
-      &lt;/a&gt;
-    &lt;/div&gt;</description>
+          <description type="html"><![CDATA[<h1 class="z-content-title">image6.jpg</h1><div class="z-content-description"></div><div class="photo">
+      <a href="http://localhost/space/photos/album/image6.jpg/index.html">
+        <img src="http://localhost/space/photos/album/image6.jpg/preview/480x480/" />
+      </a>
+    </div>]]></description>
           <guid isPermaLink="true">http://localhost/space/photos/album/image6.jpg/</guid>
           <author> (Manager)</author>
           <pubDate>...</pubDate>
         </item>
         <item>
           <title>Photo5</title>
-          <description>&lt;h1 class="z-content-title"&gt;Photo5&lt;/h1&gt;&lt;div class="z-content-description"&gt;&lt;/div&gt;&lt;div class="photo"&gt;
-      &lt;a href="http://localhost/space/photos/album/image5/index.html"&gt;
-        &lt;img src="http://localhost/space/photos/album/image5/preview/480x480/" /&gt;
-      &lt;/a&gt;
-    &lt;/div&gt;</description>
+          <description type="html"><![CDATA[<h1 class="z-content-title">Photo5</h1><div class="z-content-description"></div><div class="photo">
+      <a href="http://localhost/space/photos/album/image5/index.html">
+        <img src="http://localhost/space/photos/album/image5/preview/480x480/" />
+      </a>
+    </div>]]></description>
           <guid isPermaLink="true">http://localhost/space/photos/album/image5/</guid>
           <author> (Manager)</author>
           <pubDate>...</pubDate>
         </item>
     ...
+      </channel>
     </rss>
 
 Photo batching
